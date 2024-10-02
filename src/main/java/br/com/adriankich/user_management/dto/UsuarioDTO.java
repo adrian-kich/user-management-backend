@@ -1,7 +1,6 @@
 package br.com.adriankich.user_management.dto;
 
 import br.com.adriankich.user_management.entity.UsuarioEntity;
-import jakarta.persistence.Column;
 import org.springframework.beans.BeanUtils;
 
 public class UsuarioDTO {
