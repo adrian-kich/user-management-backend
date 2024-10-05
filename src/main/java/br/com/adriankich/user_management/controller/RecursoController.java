@@ -17,7 +17,7 @@ public class RecursoController {
     private RecursoService recursoService;
 
     @GetMapping
-    public ResponseEntity<List<RecursoDTO>> listarUsuarios() {
+    public ResponseEntity<List<RecursoDTO>> listarRecursos() {
         return ResponseEntity.ok(recursoService.listarTodos());
     }
 
