@@ -4,6 +4,7 @@ import br.com.adriankich.user_management.dto.UsuarioDTO;
 import br.com.adriankich.user_management.entity.UsuarioEntity;
 import br.com.adriankich.user_management.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<UsuarioDTO> listarTodos() {
         List<UsuarioEntity> usuarios = usuarioRepository.findAll();
@@ -25,11 +29,13 @@ public class UsuarioService {
 
     public void inserir(UsuarioDTO usuarioDTO) {
         UsuarioEntity usuarioEntity = new UsuarioEntity(usuarioDTO);
+        usuarioEntity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         usuarioRepository.save(usuarioEntity);
     }
 
     public UsuarioDTO alterar(UsuarioDTO usuarioDTO) {
         UsuarioEntity usuarioEntity = new UsuarioEntity(usuarioDTO);
+        usuarioEntity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         return new UsuarioDTO(usuarioRepository.save(usuarioEntity));
     }
 
