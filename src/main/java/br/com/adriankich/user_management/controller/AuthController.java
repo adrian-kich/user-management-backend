@@ -29,4 +29,10 @@ public class AuthController {
         usuarioService.cadastrar(usuarioDTO);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/verificar/{uuid}")
+    public String verificarCadastro(@PathVariable("uuid") String uuid) {
+        usuarioService.verificarCadastro(uuid);
+        return null;
+    }
 }
