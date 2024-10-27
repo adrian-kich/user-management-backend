@@ -1,6 +1,7 @@
 package br.com.adriankich.user_management.dto;
 
 import br.com.adriankich.user_management.entity.UsuarioEntity;
+import br.com.adriankich.user_management.entity.enums.TipoSituacaoUsuario;
 import org.springframework.beans.BeanUtils;
 
 public class UsuarioDTO {
@@ -10,6 +11,7 @@ public class UsuarioDTO {
     private String login;
     private String senha;
     private String email;
+    private TipoSituacaoUsuario situacao;
 
     public UsuarioDTO() {}
 
@@ -55,5 +57,13 @@ public class UsuarioDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public TipoSituacaoUsuario getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(TipoSituacaoUsuario situacao) {
+        this.situacao = situacao;
     }
 }

@@ -1,4 +1,4 @@
-INSERT INTO cmn_usuarios(ID, NOME, LOGIN, SENHA, EMAIL) VALUES (1, 'Adrian Kich', 'ak', '1234', 'ak@gmail.com');
+INSERT INTO cmn_usuarios(ID, NOME, LOGIN, SENHA, EMAIL, SITUACAO) VALUES (1, 'Adrian Kich', 'ak', '1234', 'ak@gmail.com', 'ATIVO');
 
 ALTER SEQUENCE cmn_usuarios_id_seq RESTART WITH 2;
 
