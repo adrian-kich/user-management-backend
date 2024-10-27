@@ -2,6 +2,7 @@ package br.com.adriankich.user_management.service;
 
 import br.com.adriankich.user_management.dto.UsuarioDTO;
 import br.com.adriankich.user_management.entity.UsuarioEntity;
+import br.com.adriankich.user_management.entity.enums.TipoSituacaoUsuario;
 import br.com.adriankich.user_management.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,9 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<UsuarioDTO> listarTodos() {
         List<UsuarioEntity> usuarios = usuarioRepository.findAll();
         return usuarios.stream().map(UsuarioDTO::new).toList();
@@ -31,6 +35,18 @@ public class UsuarioService {
         UsuarioEntity usuarioEntity = new UsuarioEntity(usuarioDTO);
         usuarioEntity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         usuarioRepository.save(usuarioEntity);
+    }
+
+    public void cadastrar(UsuarioDTO usuarioDTO) {
+        UsuarioEntity usuarioEntity = new UsuarioEntity(usuarioDTO);
+        usuarioEntity.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
+        usuarioEntity.setSituacao(TipoSituacaoUsuario.PENDENTE);
+        usuarioEntity.setId(null);
+        usuarioRepository.save(usuarioEntity);
+
+        emailService.enviarEmailTexto(usuarioDTO.getEmail(),
+                "Verificação de cadastro",
+                "Você esta recebendo um email para verificar o cadastro");
     }
 
     public UsuarioDTO alterar(UsuarioDTO usuarioDTO) {
